@@ -1,0 +1,24 @@
+{
+    "name": "namelesscoder/patternlab-fluid-patternengine",
+    "type": "patternlab-patternengine",
+    "license": "MIT",
+    "require": {
+        "pattern-lab/core": "^2.8",
+        "typo3fluid/fluid": "^2.4"
+    },
+    "extra": {
+        "patternlab": {
+            "config": {
+                "patternExtension": "fluid",
+                "lineageMatch": "{%([ ]+)?(?:f\\:render)( |\\()[&quot;\\&#039;]([\\/.@A-Za-z0-9-_]+)[&quot;\\&#039;]([\\s\\S+]*?)%}",
+                "lineageMatchKey": 3
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "NamelessCoder\\FluidPatternEngine\\": "src/"
+        }
+    }
+}
