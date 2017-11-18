@@ -10,9 +10,8 @@
         "patternlab": {
             "config": {
                 "patternExtension": "fluid",
-                "lineageMatch": "{%([ ]+)?(?:f\\:render)( |\\()[&quot;\\&#039;]([\\/.@A-Za-z0-9-_]+)[&quot;\\&#039;]([\\s\\S+]*?)%}",
-                "lineageMatchKey": 3
-
+                "lineageMatch": "([<{]f:render.*partial[=:\\s\"']*([^\"']+)[\"']*)",
+                "lineageMatchKey": 2
             }
         }
     },
