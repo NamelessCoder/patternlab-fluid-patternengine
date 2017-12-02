@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
 namespace NamelessCoder\FluidPatternEngine\Traits;
 
 use NamelessCoder\FluidPatternEngine\Emulation\EmulatingTemplateParser;
 use NamelessCoder\FluidPatternEngine\Emulation\PatternLabViewHelperInvoker;
+use NamelessCoder\FluidPatternEngine\Hooks\HookManager;
 use NamelessCoder\FluidPatternEngine\Resolving\PatternLabTemplatePaths;
 use NamelessCoder\FluidPatternEngine\Resolving\PatternLabViewHelperResolver;
 use PatternLab\Config;
@@ -36,6 +38,9 @@ trait FluidLoader
         $this->view->getRenderingContext()->getViewHelperResolver()->addNamespace('plio', 'PatternLab\\ViewHelpers');
         foreach (Config::getOption('fluidNamespaces') ?? [] as $namespaceName => $namespaces) {
             $this->view->getRenderingContext()->getViewHelperResolver()->addNamespace($namespaceName, (array) $namespaces);
+        }
+        foreach (HookManager::getHookSubscriberInstances() as $hookSubscriberInstance) {
+            $this->view = $hookSubscriberInstance->viewCreated($this->view);
         }
     }
 }

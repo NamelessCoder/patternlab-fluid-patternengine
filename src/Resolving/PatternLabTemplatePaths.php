@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace NamelessCoder\FluidPatternEngine\Resolving;
 
 use TYPO3Fluid\Fluid\View\TemplatePaths;
@@ -7,17 +8,10 @@ class PatternLabTemplatePaths extends TemplatePaths
 {
     public function getPartialPathAndFilename($partialName)
     {
-        $pattern = implode('.+', explode('-', $partialName));
-        $allAvailablePartials = $this->resolveAvailablePartialFiles($this->getFormat());
-        foreach ($allAvailablePartials as $availablePartialPathAndFilename) {
-            if (preg_match('/' . $pattern . '/i', $availablePartialPathAndFilename)) {
-                return $availablePartialPathAndFilename;
-            }
-        }
-        return parent::getPartialPathAndFilename($partialName);
+        return parent::getPartialPathAndFilename((new PartialNamingHelper())->determinePatternCleanName($partialName));
     }
 
-    public function getLayoutPathAndFilename($layoutName = 'Default')
+    public function getLayoutPathAndFilename($layoutName = 'default')
     {
         $paths = $this->getLayoutRootPaths();
         return $this->resolveFileInPaths($paths, $layoutName);

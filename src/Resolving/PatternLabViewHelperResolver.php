@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 namespace NamelessCoder\FluidPatternEngine\Resolving;
 
 use NamelessCoder\FluidPatternEngine\Emulation\EmulatingViewHelper;
+use NamelessCoder\FluidPatternEngine\Hooks\HookManager;
 use PatternLab\Config;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperResolver;
@@ -10,6 +12,13 @@ class PatternLabViewHelperResolver extends ViewHelperResolver
 {
     public function resolveViewHelperClassName($namespaceIdentifier, $methodIdentifier)
     {
+        foreach (HookManager::getHookSubscriberInstances() as $hookSubscriberInstance) {
+            $hookResolvedClass = $hookSubscriberInstance->resolveViewHelperClassName($namespaceIdentifier, $methodIdentifier);
+            if ($hookResolvedClass) {
+                return $hookResolvedClass;
+            }
+        }
+
         if ($namespaceIdentifier === 'plio') {
             $possibleFilename = Config::getOption('sourceDir') . DIRECTORY_SEPARATOR . '_viewhelpers' . DIRECTORY_SEPARATOR . ucfirst(str_replace('.', DIRECTORY_SEPARATOR, $methodIdentifier)) . 'ViewHelper.php';
             if (file_exists($possibleFilename)) {
