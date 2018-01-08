@@ -25,7 +25,7 @@ class PartialNamingHelper
             case 'Atoms':
             case 'Molecules':
             case 'Organisms':
-                return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Partials//' . $this->determinePartialNameForPattern($patternName) . '.html';
+                return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Partials/' . $this->determinePatternSubPath($patternName) . '.html';
                 break;
             case 'Templates':
                 return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Templates/Default/' . implode('/', $parts) . '.html';
