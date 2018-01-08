@@ -11,7 +11,7 @@ class PartialNamingHelper
     {
         $patternName = $this->determinePatternCleanName($patternName);
         $parts = array_map('ucfirst', explode('-', $patternName));
-        return implode('/', $parts);
+        return ucfirst(array_shift($parts)) . DIRECTORY_SEPARATOR . implode('', array_map('ucfirst', $parts));
     }
 
     public function determineTargetFileLocationForPattern(string $patternName): string
