@@ -45,6 +45,24 @@ class PartialNamingHelper
         }
     }
 
+    public function determinePatternSubPath(string $patternName): string
+    {
+        $configuration = PatternData::get();
+        foreach ($configuration as $patternConfiguration) {
+            if ($patternConfiguration['category'] === 'pattern') {
+                if (
+                    $patternConfiguration['name'] === $patternName
+                    || $patternConfiguration['path'] . DIRECTORY_SEPARATOR . $patternConfiguration['name'] === $patternName
+                    || $patternConfiguration['nameDash'] === $patternName
+                    || $patternConfiguration['nameClean'] === $patternName
+                    || $patternConfiguration['partial'] === $patternName
+                ) {
+                    return implode(DIRECTORY_SEPARATOR, array_map('ucfirst', array_values($patternConfiguration['breadcrumb']))) . DIRECTORY_SEPARATOR . implode('', array_map('ucfirst', explode('-', $patternConfiguration['nameDash'])));
+                }
+            }
+        }
+        return $patternName;
+    }
     public function determinePatternCleanName(string $patternName): string
     {
         $configuration = PatternData::get();
