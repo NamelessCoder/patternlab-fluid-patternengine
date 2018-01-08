@@ -52,6 +52,7 @@ class PartialNamingHelper
             if ($patternConfiguration['category'] === 'pattern') {
                 if (
                     $patternConfiguration['name'] === $patternName
+                    || $patternConfiguration['path'] === $patternName
                     || $patternConfiguration['nameDash'] === $patternName
                     || $patternConfiguration['nameClean'] === $patternName
                     || $patternConfiguration['partial'] === $patternName
