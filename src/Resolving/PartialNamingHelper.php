@@ -22,11 +22,6 @@ class PartialNamingHelper
         $parts = array_map('ucfirst', explode('-', $patternName));
         $type = array_shift($parts);
         switch ($type) {
-            case 'Atoms':
-            case 'Molecules':
-            case 'Organisms':
-                return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Partials/' . $this->determinePatternSubPath($patternName) . '.html';
-                break;
             case 'Templates':
                 return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Templates/Default/' . implode('/', $parts) . '.html';
                 break;
@@ -34,13 +29,7 @@ class PartialNamingHelper
                 return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Templates/Page/' . implode('/', $parts) . '.html';
                 break;
             default:
-                throw new \RuntimeException(
-                    sprintf(
-                        'The pattern type "%s" (implied from "%s") is unknown.',
-                        $type,
-                        $originalPatternName
-                    )
-                );
+                return $directory . DIRECTORY_SEPARATOR . 'Resources/Private/Partials/' . $this->determinePatternSubPath($patternName) . '.html';
                 break;
         }
     }
