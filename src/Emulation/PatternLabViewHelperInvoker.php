@@ -54,9 +54,7 @@ class PatternLabViewHelperInvoker extends ViewHelperInvoker
                 }
                 return $tagBuilder->render();
             }
-            if ($outputsTagContent) {
-                return $renderChildrenClosure();
-            }
+            return $content;
         }
     }
 }
