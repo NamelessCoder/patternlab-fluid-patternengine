@@ -27,7 +27,7 @@ class PatternLabViewHelperResolver extends ViewHelperResolver
                 })();
                 $expectedClassName = '\\' . ucfirst(str_replace(DIRECTORY_SEPARATOR, '\\', $methodIdentifier)) . 'ViewHelper';
                 $classFileContents = file_get_contents($possibleFilename);
-                $namespacePosition = strpos($classFileContents, PHP_EOL . 'namespace ');
+                $namespacePosition = strpos($classFileContents, "\n" . 'namespace ');
                 if ($namespacePosition) {
                     $namespace = substr($classFileContents, $namespacePosition + 11, strpos($classFileContents, ';', $namespacePosition) - $namespacePosition - 11);
                     $expectedClassName = $namespace . $expectedClassName;
